@@ -6,11 +6,11 @@ phases:
   build:
     commands:
       - echo "Entered build phase"
-      - mvn clean package
+      - mvn -B clean package -DskipTests
   post_build:
     commands:
       - echo "Entered the post-build phase"
-      - mv target/ ./
+      - mv target/*.jar ./app.jar
 artifacts:
   files:
-    - deploy/**/*
+    - app.jar
