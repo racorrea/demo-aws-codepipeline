@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Compile') {
             steps {
-                echo 'Building..'
+                sh 'mvn clean compile'
             }
         }
-        stage('Test') {
+        stage('Package') {
             steps {
-                echo 'Testing..'
+                sh 'mvn package -D maven.test.skip=true'
             }
         }
         stage('Deploy') {
