@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'mvn spring-boot:run'
+                sh 'java -jar target/demo-aws-pipeline-0.0.1.jar'
             }
         }
     }
