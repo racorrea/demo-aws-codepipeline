@@ -18,8 +18,10 @@ pipeline {
             }
         }
         stage('Dockerize-login') {
-            withCredentials([usernamePassword(credentialsId: 'dockerhub_login', passwordVariable: 'password', usernameVariable: 'username')]) {
-                sh "docker login -u $username -p $password"
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_login', passwordVariable: 'password', usernameVariable: 'username')]) {
+                    sh "docker login -u $username -p $password"
+                }
             }
         }
         stage('Dockerize-Publish-image') {
