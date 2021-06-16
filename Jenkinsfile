@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Dockerize-Deploy') {
             steps {
-                sh 'docker run -d -p 8080:8181 racorrea13/hello-world:latest'
+                sh 'docker run -d -p 8181:8181 racorrea13/hello-world:latest'
             }
         }
     }
