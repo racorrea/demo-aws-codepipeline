@@ -1,4 +1,7 @@
 pipeline {
+    environment { 
+        registryCredential = 'dockerhub_id' 
+    }
     agent any
 
     stages {
@@ -18,9 +21,11 @@ pipeline {
             }
         }
         stage('Dockerize-Publish-image') {
-            steps {
-                sh 'docker push racorrea13/hello-world:latest'
-            }
+            script { 
+                docker.withRegistry( '', registryCredential ) { 
+                    dockerImage.push() 
+                }
+            } 
         }
         stage('Dockerize-Deploy') {
             steps {
