@@ -1,7 +1,4 @@
 pipeline {
-    environment { 
-        registryCredential = 'dockerhub_login' 
-    }
     agent any
 
     stages {
@@ -20,12 +17,15 @@ pipeline {
                 sh 'docker build -t racorrea13/hello-world:latest .'
             }
         }
+        stage('Dockerize-login') {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub_login', passwordVariable: 'password', usernameVariable: 'username')]) {
+                sh "docker login -u $username -p $password"
+            }
+        }
         stage('Dockerize-Publish-image') {
-            script { 
-                docker.withRegistry( '', registryCredential ) { 
-                    dockerImage.push() 
-                }
-            } 
+            steps {
+                sh 'docker push racorrea13/hello-world:latest'
+            }
         }
         stage('Dockerize-Deploy') {
             steps {
