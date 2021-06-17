@@ -11,5 +11,10 @@ public class HelloWorldController {
         return "Hello World";
     }
 
+    @GetMapping("/hello-pis")
+    public String helloPis(){
+        return "Hello World PIS 2021";
+    }
+
 
 }
